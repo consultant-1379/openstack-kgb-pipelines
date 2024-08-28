@@ -1,0 +1,29 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    user: "{{ project_name + '_admin' }}"
+    password: admin123
+  tasks:
+    - os_server:
+        auth:
+          auth_url: "{{ cloud }}"
+          username: "{{ user }}"
+          password: "{{ password }}"
+          project_name: "{{ project_name }}"
+          project_domain_name: Default
+          user_domain_name: Default
+        name: "{{ deployment_id + '_netsim' }}"
+        state: absent
+        wait: yes
+
+    - os_volume:
+        auth:
+          auth_url: "{{ cloud }}"
+          username: "{{ user }}"
+          password: "{{ password }}"
+          project_name: "{{ project_name }}"
+          project_domain_name: Default
+          user_domain_name: Default
+        name: "{{ deployment_id + '_netsim_root_volume' }}"
+        state: absent
+        wait: yes
